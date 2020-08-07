@@ -1,13 +1,16 @@
 name: 'Send Google Chat messages'
 description: 'Send Google Chat messages'
-author: '@delivery-much'
+author: '@ipacheco'
 branding:
-  icon: 'code'
-  color: 'yellow'
+  icon: 'send'
+  color: 'blue'
 inputs:
   url:
     description: 'Google Chat Webhook URL'
     required: true
+  project:
+    description: 'Jira project code (if issues are RI-105 then RI)'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

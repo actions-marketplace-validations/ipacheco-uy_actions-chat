@@ -5,7 +5,8 @@ const chat = require('./src/chat')
 const run = async () => {
   try {
     const url = core.getInput('url', { required: true })
-    await chat.send(url)
+    const project = core.getInput('project', { required: false })
+    await chat.send(url, project)
   } catch (error) {
     core.setFailed(error.message)
   }

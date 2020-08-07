@@ -6,8 +6,9 @@ const { newPullRequest, newRelease } = require('./messages')
  * Send Google Chat message.
  *
  * @param {string} url - Google Chat Webhook URL
+ * @param {string} project - Jira project code
  */
-const send = async (url) => {
+const send = async (url, project) => {
   const axiosInstance = newAxios(url)
 
   switch (github.context.eventName) {
@@ -17,17 +18,7 @@ const send = async (url) => {
       const author = github.context.actor
       const htmlUrl = github.context.payload.pull_request.html_url
 
-      const body = newPullRequest(repo, title, author, htmlUrl)
-      await post(axiosInstance, url, body)
-      break
-    }
-    case 'release': {
-      const { repo } = github.context.repo
-      const tag = github.context.payload.release.tag_name
-      const author = github.context.actor
-      const htmlUrl = github.context.payload.release.html_url
-
-      const body = newRelease(repo, tag, author, htmlUrl)
+      const body = newPullRequest(repo, title, author, htmlUrl, project)
       await post(axiosInstance, url, body)
       break
     }

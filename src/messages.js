@@ -5,10 +5,12 @@
  * @param {string} title - Pull request title
  * @param {string} author - GitHub author username
  * @param {string} htmlUrl - Pull request GitHub Url
+ * @param {string} project - Jira project code
  *
  * @returns {object} Google Chat card body
  */
-const newPullRequest = (repo, title, author, htmlUrl) => {
+const newPullRequest = (repo, title, author, htmlUrl, project) => {
+  var issueNumber = new RegExp(project+'-[0-9]+','i').exec(title);
   const body = {
     cards: [
       {
@@ -45,10 +47,20 @@ const newPullRequest = (repo, title, author, htmlUrl) => {
                 buttons: [
                   {
                     textButton: {
-                      text: 'OPEN',
+                      text: 'Pull Request',
                       onClick: {
                         openLink: {
                           url: htmlUrl
+                        }
+                      }
+                    }
+                  },
+                  {
+                    textButton: {
+                      text: 'Jira',
+                      onClick: {
+                        openLink: {
+                          url: 'https://jira.despegar.com/browse/${issueNumber}'
                         }
                       }
                     }
