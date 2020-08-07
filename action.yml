@@ -1,5 +1,5 @@
-name: 'Send Google Chat messages'
-description: 'Send Google Chat messages'
+name: 'Google chatroom message'
+description: 'Send Google Chat messages for some github actions'
 author: '@ipacheco'
 branding:
   icon: 'send'
@@ -9,7 +9,7 @@ inputs:
     description: 'Google Chat Webhook URL'
     required: true
   project:
-    description: 'Jira project code (if issues are RI-105 then RI)'
+    description: 'Jira project code (if issues are AA-105 then AA)'
     required: false
 runs:
   using: 'node12'
