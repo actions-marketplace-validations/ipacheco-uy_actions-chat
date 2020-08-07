@@ -6,7 +6,8 @@ const run = async () => {
   try {
     const url = core.getInput('url', { required: true })
     const project = core.getInput('project', { required: false })
-    await chat.send(url, project)
+    const jiraHost = core.getInput('jiraHost', { required: false })
+    await chat.send(url, project, jiraHost)
   } catch (error) {
     core.setFailed(error.message)
   }

@@ -11,6 +11,9 @@ inputs:
   project:
     description: 'Jira project code (if issues are AA-105 then AA)'
     required: false
+  jiraHost:
+    description: 'Jira project host url (example: https://jira.empresa.com/)'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

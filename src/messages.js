@@ -9,7 +9,7 @@
  *
  * @returns {object} Google Chat card body
  */
-const newPullRequest = (repo, title, author, htmlUrl, project) => {
+const newPullRequest = (repo, title, author, htmlUrl, project, jiraHost) => {
   var issueNumber = new RegExp(project+'-[0-9]+','i').exec(title);
   const body = {
     cards: [
@@ -60,7 +60,7 @@ const newPullRequest = (repo, title, author, htmlUrl, project) => {
                       text: 'Jira',
                       onClick: {
                         openLink: {
-                          url: `https://jira.despegar.com/browse/${issueNumber}`
+                          url: `${jiraHost}/browse/${issueNumber}`
                         }
                       }
                     }

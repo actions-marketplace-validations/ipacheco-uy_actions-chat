@@ -1301,7 +1301,8 @@ const run = async () => {
   try {
     const url = core.getInput('url', { required: true })
     const project = core.getInput('project', { required: false })
-    await chat.send(url, project)
+    const jiraHost = core.getInput('jiraHost', { required: false })
+    await chat.send(url, project, jiraHost)
   } catch (error) {
     core.setFailed(error.message)
   }
@@ -3064,8 +3065,9 @@ const { newPullRequest, newRelease } = __webpack_require__(573)
  *
  * @param {string} url - Google Chat Webhook URL
  * @param {string} project - Jira project code
+ * @param {string} jiraHost - Jira host url
  */
-const send = async (url, project) => {
+const send = async (url, project, jiraHost) => {
   const axiosInstance = newAxios(url)
 
   switch (github.context.eventName) {
@@ -3075,7 +3077,7 @@ const send = async (url, project) => {
       const author = github.context.actor
       const htmlUrl = github.context.payload.pull_request.html_url
 
-      const body = newPullRequest(repo, title, author, htmlUrl, project)
+      const body = newPullRequest(repo, title, author, htmlUrl, project, jiraHost)
       await post(axiosInstance, url, body)
       break
     }
@@ -9679,7 +9681,7 @@ module.exports = parse;
  *
  * @returns {object} Google Chat card body
  */
-const newPullRequest = (repo, title, author, htmlUrl, project) => {
+const newPullRequest = (repo, title, author, htmlUrl, project, jiraHost) => {
   var issueNumber = new RegExp(project+'-[0-9]+','i').exec(title);
   const body = {
     cards: [
@@ -9730,7 +9732,7 @@ const newPullRequest = (repo, title, author, htmlUrl, project) => {
                       text: 'Jira',
                       onClick: {
                         openLink: {
-                          url: `https://jira.despegar.com/browse/${issueNumber}`
+                          url: `${jiraHost}/browse/${issueNumber}`
                         }
                       }
                     }
