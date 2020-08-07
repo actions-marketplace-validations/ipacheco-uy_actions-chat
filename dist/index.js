@@ -9730,7 +9730,7 @@ const newPullRequest = (repo, title, author, htmlUrl, project) => {
                       text: 'Jira',
                       onClick: {
                         openLink: {
-                          url: 'https://jira.despegar.com/browse/${issueNumber}'
+                          url: `https://jira.despegar.com/browse/${issueNumber}`
                         }
                       }
                     }
